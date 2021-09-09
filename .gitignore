@@ -1,0 +1,11 @@
+.env
+garbage.py
+*.xlsx
+*.pdf
+*.ipynb
+__pycache__
+credentials.json
+.vscode
+images
+temp.md
+hello
