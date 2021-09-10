@@ -14,7 +14,9 @@ class Gsheet:
             self.res = self.ws.get_all_records()
             self.res = pd.DataFrame(self.res)
             print("Connected to GOOGLE SHEET successfully")
+            self.connection = True
         except:
+            self.connection = False
             print("\nCan't connect to GOOGLE SHEET")
         
     def updatechanges(self):

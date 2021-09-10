@@ -20,8 +20,10 @@ class Gmail:
             self.smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             self.smtp.login(self.email_address, self.password)
             print("Connected to GMAIL successfully")
+            self.connection = True
         except:
             print("\nFaild to connect to GMAIL")
+            self.connection = False
 
     def send_email(self, reciever, sender, subject, txt, file):
         msg = EmailMessage()
