@@ -44,10 +44,10 @@ class Gmail:
         try:
             self.smtp.send_message(msg)
             print(f"✅ Email sent to {reciever}")
-            return True
+            return f"✅ Email sent to {reciever}"
         except:
             print(f"❌ Failed to send email to {reciever}")
-            return False
+            return f"❌ Failed to send email to {reciever}"
 
     def close_gmail(self):
         self.smtp.close()
