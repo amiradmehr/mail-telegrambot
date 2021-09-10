@@ -16,18 +16,12 @@ class Gmail:
         self.email_address = email_address
         self.password = password
 
-        while True:
-
-            try:
-                self.smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-                self.smtp.login(self.email_address, self.password)
-                print("Connected to GMAIL successfully")
-                break
-            except:
-                print("\nFaild to connect to GMAIL")
-                for i in range(6):
-                    sleep(.5)
-                    progressBar(i,5)
+        try:
+            self.smtp = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            self.smtp.login(self.email_address, self.password)
+            print("Connected to GMAIL successfully")
+        except:
+            print("\nFaild to connect to GMAIL")
 
     def send_email(self, reciever, sender, subject, txt, file):
         msg = EmailMessage()

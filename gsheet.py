@@ -6,21 +6,16 @@ from time import sleep
 class Gsheet:
 
     def __init__(self, creds, sh_name, ws_name):
-        while True:
 
-            try:
-                gc = gspread.service_account(filename=creds)
-                self.sh = gc.open(sh_name)
-                self.ws = self.sh.worksheet(ws_name)
-                self.res = self.ws.get_all_records()
-                self.res = pd.DataFrame(self.res)
-                print("Connected to GOOGLE SHEET successfully")
-                break
-            except:
-                print("\nCan't connect to GOOGLE SHEET")
-                for i in range(6):
-                    sleep(.5)
-                    progressBar(i,5)
+        try:
+            gc = gspread.service_account(filename=creds)
+            self.sh = gc.open(sh_name)
+            self.ws = self.sh.worksheet(ws_name)
+            self.res = self.ws.get_all_records()
+            self.res = pd.DataFrame(self.res)
+            print("Connected to GOOGLE SHEET successfully")
+        except:
+            print("\nCan't connect to GOOGLE SHEET")
         
     def updatechanges(self):
         self.res = self.ws.get_all_records()
