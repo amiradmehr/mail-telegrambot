@@ -36,7 +36,12 @@ def telegrambot():
 
     @bot.message_handler(commands=['help'])
     def send_welcome(message):
-        help_txt = 'this is mail bot'
+        help_txt = '''
+        This is telemail
+        you need to create a google sheet with columns names:
+        Name
+        
+        '''
         bot.send_message(message.chat.id, help_txt)
 
     @bot.message_handler(func=email_num_request)
@@ -84,7 +89,7 @@ def telegrambot():
         else:
             mygmail.close_gmail()
             bot.send_message(message.chat.id, "failed to connect")
-    bot.polling()
+    bot.infinity_polling()
 
 
 if __name__ == '__main__':
