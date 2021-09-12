@@ -39,15 +39,15 @@ def telegrambot():
 
     bot = telebot.TeleBot(TOKEN)
     print('Robot is intialized')
-    markup = types.ReplyKeyboardMarkup(row_width=2)
-    itembtn1 = types.KeyboardButton('a')
-    itembtn2 = types.KeyboardButton('v')
-    itembtn3 = types.KeyboardButton('d')
+    markup = types.ReplyKeyboardMarkup(row_width=3)
+    itembtn1 = types.KeyboardButton('send US 1')
+    itembtn2 = types.KeyboardButton('send US 10')
+    itembtn3 = types.KeyboardButton('sheet US')
     markup.add(itembtn1, itembtn2, itembtn3)
 
 
 
-    @bot.message_handler(commands=['help'])
+    @bot.message_handler(commands=['help', 'start'])
     def send_welcome(message):
         help_txt = '''
         This is telemail
