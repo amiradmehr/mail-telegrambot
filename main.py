@@ -20,7 +20,7 @@ WORKBOOK_NAME = os.getenv('WORKBOOK_NAME')
 CV = os.getenv('CV')
 
 
-def email_num_request(message):
+def mes_request(message):
     request = message.text.split()
     if len(request) < 3 or request[0].lower() not in "send":
         return False
@@ -44,7 +44,7 @@ def telegrambot():
         '''
         bot.send_message(message.chat.id, help_txt)
 
-    @bot.message_handler(func=email_num_request)
+    @bot.message_handler(func=mes_request)
     def composer(message):
 
         bot.send_message(message.chat.id, "Connecting to server ...")
@@ -54,7 +54,7 @@ def telegrambot():
         mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
         mygmail = Gmail(EMAIL_ADDRESS, EMAIL_PASSWORD)
         if mysheet.connection and mygmail.connection:
-            bot.send_message(message.chat.id, "connected to servers successfully")
+            bot.send_message(message.chat.id, "connected to Google successfully")
 
             mysheet.save_sheet()
             mysheet.fill_duplicates()
@@ -70,13 +70,15 @@ def telegrambot():
                 professor = recievers.iloc[i]['Name']
                 topic = recievers.iloc[i]['Topic']
                 paper = recievers.iloc[i]['Paper']
-                subject = 'Looking for position'
+                subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
                 template_number = int(recievers.iloc[i]['Template'])
 
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
                 sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=CV)
+
                 bot.send_message(message.chat.id, sent_to)
+                
                 recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
                 recievers.iloc[i,recievers.columns.get_loc('Date')] = f'{today}'
 
