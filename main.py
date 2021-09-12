@@ -6,6 +6,7 @@ from templates import Templates
 import os
 from dotenv import load_dotenv
 import telebot
+from telebot import types
 load_dotenv()
 
 
@@ -38,6 +39,11 @@ def telegrambot():
 
     bot = telebot.TeleBot(TOKEN)
     print('Robot is intialized')
+    markup = types.ReplyKeyboardMarkup(row_width=2)
+    itembtn1 = types.KeyboardButton('a')
+    itembtn2 = types.KeyboardButton('v')
+    itembtn3 = types.KeyboardButton('d')
+    markup.add(itembtn1, itembtn2, itembtn3)
 
 
 
