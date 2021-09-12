@@ -20,9 +20,16 @@ WORKBOOK_NAME = os.getenv('WORKBOOK_NAME')
 CV = os.getenv('CV')
 
 
-def mes_request(message):
+def send_request(message):
     request = message.text.split()
     if len(request) < 3 or request[0].lower() not in "send":
+        return False
+    else:
+        return True
+
+def sheet_request(message):
+    request = message.text.split()
+    if len(request) < 2 or request[0].lower() not in "sheet":
         return False
     else:
         return True
@@ -44,7 +51,7 @@ def telegrambot():
         '''
         bot.send_message(message.chat.id, help_txt)
 
-    @bot.message_handler(func=mes_request)
+    @bot.message_handler(func=send_request)
     def composer(message):
 
         bot.send_message(message.chat.id, "Connecting to server ...")
@@ -91,6 +98,14 @@ def telegrambot():
         else:
             mygmail.close_gmail()
             bot.send_message(message.chat.id, "failed to connect")
+    
+    @bot.message_handler(func=sheet_request)
+    def get_sheet(message):
+        ws_name = message.text.split()[1]
+        mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
+        if mysheet.connection:
+            bot.send_message(message.chat.id, f"{mysheet.res}")
+    
     bot.infinity_polling()
 
 
