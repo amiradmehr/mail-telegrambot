@@ -39,7 +39,7 @@ def telegrambot():
 
     bot = telebot.TeleBot(TOKEN)
     print('Robot is intialized')
-    markup = types.ReplyKeyboardMarkup(row_width=3)
+    markup = types.ReplyKeyboardMarkup(row_width=1)
     itembtn1 = types.KeyboardButton('send US 1')
     itembtn2 = types.KeyboardButton('send US 10')
     itembtn3 = types.KeyboardButton('sheet US')
