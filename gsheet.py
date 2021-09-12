@@ -2,6 +2,7 @@ import gspread
 import pandas as pd
 from helper import progressBar
 from time import sleep
+from copy import deepcopy
 
 class Gsheet:
 
@@ -41,12 +42,17 @@ class Gsheet:
 
     def get_rows(self, num):
 
-        rows = self.res.loc[self.res['Log']!='sent']
+        df = deepcopy(self.res)
+
+        index_names = df[df[ 'Subject'] == '' ].index
+        df.drop(index_names, inplace = True)
+
+        rows = df.loc[df['Log']!='sent']
         n_rows = rows.shape[0]
 
         if n_rows > num:
             rows = rows.iloc[range(num)]
-
+        
         return rows
 
     def update_df(self, rows):
