@@ -55,7 +55,7 @@ def telegrambot():
         Name
         
         '''
-        bot.send_message(message.chat.id, help_txt)
+        bot.send_message(message.chat.id, help_txt, reply_markup=markup)
 
     @bot.message_handler(func=send_request)
     def composer(message):
