@@ -104,7 +104,7 @@ def telegrambot():
         ws_name = message.text.split()[1]
         mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
         if mysheet.connection:
-            bot.send_message(message.chat.id, f"{mysheet.res}")
+            bot.send_message(message.chat.id, f"{mysheet.res[['Name','Log','Date']]}")
     
     bot.infinity_polling()
 
