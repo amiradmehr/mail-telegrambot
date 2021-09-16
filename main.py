@@ -115,9 +115,12 @@ def telegrambot():
         ws_name = message.text.split()[1]
         mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
         if mysheet.connection:
-            bot.send_message(message.chat.id, f"{mysheet.res[['Name','Log','Date']]}")
+            try:
+                bot.send_message(message.chat.id, f"{mysheet.res[['Name','Log','Date']]}")
+            except:
+                bot.send_message(message.chat.id, "There is something wrong with sheet indexing")
         else:
-            bot.send_message(message.chat.id, "There is something wrong with sheet indexing")
+            bot.send_message(message.chat.id, f"Connection Failed or not sheet named {ws_name} is not available")
 
 
     bot.infinity_polling()
