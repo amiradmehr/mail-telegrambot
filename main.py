@@ -88,11 +88,11 @@ def telegrambot():
 
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
-                _, sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
+                send_success_failure_message, send_flag = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
 
 
-                bot.send_message(message.chat.id, sent_to)
-                if sent_to:
+                bot.send_message(message.chat.id, send_success_failure_message)
+                if send_flag:
                     recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
                     recievers.iloc[i,recievers.columns.get_loc('Date')] = f'{today}'
 
