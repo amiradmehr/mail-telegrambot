@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 import telebot
 from telebot import types
+from bot_helper import Markups, sheet_request, send_request 
 load_dotenv()
 
 
@@ -17,36 +18,23 @@ EMAIL_PASSWORD = os.getenv('PASSWORD')
 
 CREDENTIALS = os.getenv('CREDENTIALS')
 SHEET_NAME = os.getenv('SHEET_NAME')
-WORKBOOK_NAME = os.getenv('WORKBOOK_NAME')
 CV = os.getenv('CV')
 
 
-def send_request(message):
-    request = message.text.split()
-    if len(request) < 3 or request[0].lower() not in "send":
-        return False
-    else:
-        return True
 
-def sheet_request(message):
-    request = message.text.split()
-    if len(request) < 2 or request[0].lower() not in "sheet":
-        return False
-    else:
-        return True
+
 
 def telegrambot():
 
     bot = telebot.TeleBot(TOKEN)
     print('Robot is intialized')
-    markup = types.ReplyKeyboardMarkup(row_width=1)
-    itembtn1 = types.KeyboardButton('send US 1')
-    itembtn2 = types.KeyboardButton('send US 10')
-    itembtn3 = types.KeyboardButton('sheet US')
-    markup.add(itembtn1, itembtn2, itembtn3)
+    markups = Markups()
 
 
 
+
+
+# handle help and start command
     @bot.message_handler(commands=['help', 'start'])
     def send_welcome(message):
         help_txt = '''
@@ -55,17 +43,25 @@ def telegrambot():
         Name
         
         '''
-        bot.send_message(message.chat.id, help_txt, reply_markup=markup)
+        bot.send_message(message.chat.id, help_txt, reply_markup=markups.start())
 
+
+
+
+# handle composer
     @bot.message_handler(func=send_request)
     def composer(message):
 
         bot.send_message(message.chat.id, "Connecting to server ...")
+
+        # split command line
         num = int(message.text.split()[2])
         ws_name = message.text.split()[1]
 
         mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
         mygmail = Gmail(EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+        
         if mysheet.connection and mygmail.connection:
             bot.send_message(message.chat.id, "connected to Google successfully")
 
@@ -79,16 +75,20 @@ def telegrambot():
 
             for i in range(recievers.shape[0]):
 
+
+                # extract column values
                 to = recievers.iloc[i]['Email']
                 professor = recievers.iloc[i]['Name']
                 topic = recievers.iloc[i]['Topic']
                 paper = recievers.iloc[i]['Paper']
                 subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
                 template_number = int(recievers.iloc[i]['Template'])
+                cv_num = int(recievers.iloc[i]['CV'])
+                cv = f'CV/CV{cv_num}/CV.pdf'
 
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
-                sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=CV)
+                sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
 
                 bot.send_message(message.chat.id, sent_to)
                 
