@@ -88,12 +88,13 @@ def telegrambot():
 
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
-                sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
+                _, sent_to = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
+
 
                 bot.send_message(message.chat.id, sent_to)
-                
-                recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
-                recievers.iloc[i,recievers.columns.get_loc('Date')] = f'{today}'
+                if sent_to:
+                    recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
+                    recievers.iloc[i,recievers.columns.get_loc('Date')] = f'{today}'
 
                 mysheet.update_df(recievers)
                 mysheet.update()
