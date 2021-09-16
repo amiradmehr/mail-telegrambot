@@ -81,20 +81,24 @@ def telegrambot():
                 professor = recievers.iloc[i]['Name']
                 topic = recievers.iloc[i]['Topic']
                 paper = recievers.iloc[i]['Paper']
-                subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
+                if ws_name == 'US':
+                    subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
+                elif ws_name == 'CA':
+                    subject = 'Prospective master student interested in ' + recievers.iloc[i]['Subject']
+                else:
+                    subject = ''
                 template_number = int(recievers.iloc[i]['Template'])
                 cv_num = int(recievers.iloc[i]['CV'])
+                
                 cv = f'CV/CV{cv_num}/CV.pdf'
-
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
                 send_success_failure_message, send_flag = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
-
-
                 bot.send_message(message.chat.id, send_success_failure_message)
                 if send_flag:
                     recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
                     recievers.iloc[i,recievers.columns.get_loc('Date')] = f'{today}'
+
 
                 mysheet.update_df(recievers)
                 mysheet.update()
@@ -112,7 +116,10 @@ def telegrambot():
         mysheet = Gsheet(CREDENTIALS, SHEET_NAME, ws_name)
         if mysheet.connection:
             bot.send_message(message.chat.id, f"{mysheet.res[['Name','Log','Date']]}")
-    
+        else:
+            bot.send_message(message.chat.id, "There is something wrong with sheet indexing")
+
+
     bot.infinity_polling()
 
 
