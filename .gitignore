@@ -1,7 +1,6 @@
 .env
 garbage.py
 *.xlsx
-*.pdf
 *.ipynb
 __pycache__
 credentials.json
