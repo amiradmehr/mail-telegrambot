@@ -32,12 +32,12 @@ class Gmail:
         msg['To'] = reciever
         msg.add_alternative(f'{txt}', subtype = 'html')
         
-        with open(file, 'rb') as f:
-            file_data = f.read()
-            file_name = f.name
-            msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
-
         try:
+            with open(file, 'rb') as f:
+                file_data = f.read()
+                file_name = f.name
+                msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
+
             self.smtp.send_message(msg)
             print(f"✅ Email sent to {reciever}")
             return f"✅ Email sent to {reciever}"
