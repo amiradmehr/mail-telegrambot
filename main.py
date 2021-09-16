@@ -120,7 +120,7 @@ def telegrambot():
             except:
                 bot.send_message(message.chat.id, "There is something wrong with sheet indexing")
         else:
-            bot.send_message(message.chat.id, f"Connection Failed or not sheet named {ws_name} is not available")
+            bot.send_message(message.chat.id, f"Connection Failed or sheet named \"{ws_name}\" is not available")
 
 
     bot.infinity_polling()
