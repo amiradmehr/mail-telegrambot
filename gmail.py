@@ -35,7 +35,7 @@ class Gmail:
         with open(file, 'rb') as f:
             file_data = f.read()
             file_name = f.name
-            msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
+            msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
 
         try:
             self.smtp.send_message(msg)
