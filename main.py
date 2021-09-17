@@ -53,7 +53,7 @@ def telegrambot():
     def composer(message):
 
         bot.send_message(message.chat.id, "Connecting to server ...")
-        bot.send_message(message.chat.id, "Connecting to server ...")
+        bot.send_message(message.chat.id, f"{message}")
 
         # split command line
         num = int(message.text.split()[2])
