@@ -26,7 +26,7 @@ CV = os.getenv('CV')
 
 def telegrambot():
 
-    bot = telebot.TeleBot(TOKEN)
+    bot = telebot.TeleBot(token=TOKEN)
     print('Robot is intialized')
     markups = Markups()
 
@@ -52,6 +52,7 @@ def telegrambot():
     @bot.message_handler(func=send_request)
     def composer(message):
 
+        bot.send_message(message.chat.id, "Connecting to server ...")
         bot.send_message(message.chat.id, "Connecting to server ...")
 
         # split command line
