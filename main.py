@@ -21,7 +21,17 @@ SHEET_NAME = os.getenv('SHEET_NAME')
 CV = os.getenv('CV')
 
 
+'''
+things that can go wrong:
+    user doesnt send the credentials
+    credential name is not correct
+    user havent paid the fee
+    user hasnt created the columns correctly
 
+
+
+
+'''
 
 
 def telegrambot():
@@ -53,7 +63,7 @@ def telegrambot():
     def composer(message):
 
         bot.send_message(message.chat.id, "Connecting to server ...")
-        bot.send_message(message.chat.id, f"{message}")
+        # bot.send_message(message.chat.id, f"{message}")
 
         # split command line
         num = int(message.text.split()[2])
