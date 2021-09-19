@@ -92,12 +92,13 @@ def telegrambot():
                 professor = recievers.iloc[i]['Name']
                 topic = recievers.iloc[i]['Topic']
                 paper = recievers.iloc[i]['Paper']
-                if ws_name == 'US':
-                    subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
-                elif ws_name == 'CA':
-                    subject = 'Prospective master student interested in ' + recievers.iloc[i]['Subject']
-                else:
-                    subject = ''
+                subject = recievers.iloc[i]['Subject I'] + recievers.iloc[i]['Subject II']
+                # if ws_name == 'US':
+                #     subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
+                # elif ws_name == 'CA':
+                #     subject = 'Prospective master student interested in ' + recievers.iloc[i]['Subject']
+                # else:
+                #     subject = ''
                 template_number = int(recievers.iloc[i]['Template'])
                 cv_num = int(recievers.iloc[i]['CV'])
                 
@@ -113,7 +114,7 @@ def telegrambot():
 
                 mysheet.update_df(recievers)
                 mysheet.update()
-                sleep(.2)
+                sleep(10)
 
             mygmail.close_gmail() 
             bot.send_message(message.chat.id,f"Done emailing for {today}")
