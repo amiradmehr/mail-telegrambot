@@ -92,7 +92,7 @@ def telegrambot():
                 professor = recievers.iloc[i]['Name']
                 topic = recievers.iloc[i]['Topic']
                 paper = recievers.iloc[i]['Paper']
-                subject = recievers.iloc[i]['Subject I'] + recievers.iloc[i]['Subject II']
+                subject = f"{recievers.iloc[i]['Subject I']} {recievers.iloc[i]['Subject II']}"
                 # if ws_name == 'US':
                 #     subject = 'Prospective graduate student interested in ' + recievers.iloc[i]['Subject']
                 # elif ws_name == 'CA':
