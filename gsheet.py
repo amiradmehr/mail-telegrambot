@@ -44,7 +44,7 @@ class Gsheet:
 
         df = deepcopy(self.res)
 
-        index_names = df[df[ 'Subject'] == '' ].index
+        index_names = df[df[ 'Subject I'] == '' ].index
         df.drop(index_names, inplace = True)
 
         rows = df.loc[df['Log']!='sent']
