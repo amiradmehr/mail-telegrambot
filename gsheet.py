@@ -14,7 +14,6 @@ class Gsheet:
             self.ws = self.sh.worksheet(ws_name)
             self.res = self.ws.get_all_records()
             self.res = pd.DataFrame(self.res)
-            del self.res['Link']
             print("Connected to GOOGLE SHEET successfully")
             self.connection = True
         except:
