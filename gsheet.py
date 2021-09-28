@@ -30,8 +30,7 @@ class Gsheet:
 
     
     def update(self):
-        # self.ws.update([self.res.columns.values.tolist()] + self.res.values.tolist())
-        self.ws.update(['Log', 'Date'],[self.res['Log','Date'].values.tolist()] + self.res['Log','Date'].values.tolist())
+        self.ws.update([self.res.columns.values.tolist()] + self.res.values.tolist())
         return True
 
     
