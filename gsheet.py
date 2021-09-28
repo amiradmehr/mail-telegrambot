@@ -31,8 +31,7 @@ class Gsheet:
     
     def update(self):
         df = deepcopy(self.res[['Log','Date']])
-        print([df.columns.values.tolist()])
-        self.ws.update([self.res.columns.values.tolist()] + self.res.values.tolist())
+        self.ws.update([df.columns.values.tolist()] + df.values.tolist())
         return True
 
     
