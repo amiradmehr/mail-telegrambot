@@ -101,8 +101,8 @@ def telegrambot():
                 #     subject = ''
                 template_number = int(recievers.iloc[i]['Template'])
                 cv_num = int(recievers.iloc[i]['CV'])
-                cl_bool = int(recievers.iloc[i]['CL'])
-                transcript_bool = int(recievers.iloc[i]['TR'])
+                cl_bool = recievers.iloc[i]['CL']
+                transcript_bool = recievers.iloc[i]['TR']
                 
                 cv = f'CV/CV{cv_num}/CV.pdf'
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
