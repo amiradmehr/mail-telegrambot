@@ -35,7 +35,10 @@ class Gsheet:
 
     
     def fill_duplicates(self):
-        emails = ~self.res['Email'].isin([''])
+        df = deepcopy(self.res)
+        index_names = df[df['Email'] == '' ].index
+        df.drop(index_names, inplace = True)
+        emails = df['Email']
         print(len(emails))
         duplicates = emails.duplicated(keep='first')
         self.res.at[list(duplicates),'Log'] = 'sent'
@@ -45,7 +48,7 @@ class Gsheet:
 
         df = deepcopy(self.res)
 
-        index_names = df[df[ 'Subject I'] == '' ].index
+        index_names = df[df['Subject I'] == '' ].index
         df.drop(index_names, inplace = True)
 
         rows = df.loc[df['Log']!='sent']
