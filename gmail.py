@@ -35,20 +35,17 @@ class Gmail:
         try:
             with open(file, 'rb') as f:
                 file_data = f.read()
-                file_name = f.name
                 msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
             if CL == '1':
                 cl = 'Cover Letter.pdf'
-                with open(cl, 'rb') as f:
-                    file_data = f.read()
-                    file_name = f.name
+                with open(cl, 'rb') as ff:
+                    file_data = ff.read()
                     msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='Cover Letter.pdf')
 
             if Trans == '1':
                 transcript = 'Transcript.pdf'
-                with open(transcript, 'rb') as f:
-                    file_data = f.read()
-                    file_name = f.name
+                with open(transcript, 'rb') as fff:
+                    file_data = fff.read()
                     msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='Transcript.pdf')
 
             self.smtp.send_message(msg)
