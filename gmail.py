@@ -25,7 +25,7 @@ class Gmail:
             print("\nFaild to connect to GMAIL")
             self.connection = False
 
-    def send_email(self, reciever, sender, subject, txt, file):
+    def send_email(self, reciever, sender, subject, txt, file, CL='None', Trans='None'):
         msg = EmailMessage()
         msg['Subject'] = subject
         msg['From'] = sender
@@ -37,6 +37,19 @@ class Gmail:
                 file_data = f.read()
                 file_name = f.name
                 msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
+            if CL == '1':
+                cl = 'Cover Letter.pdf'
+                with open(cl, 'rb') as f:
+                    file_data = f.read()
+                    file_name = f.name
+                    msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='Cover Letter.pdf')
+
+            if Trans == '1':
+                transcript = 'Transcript.pdf'
+                with open(transcript, 'rb') as f:
+                    file_data = f.read()
+                    file_name = f.name
+                    msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='Transcript.pdf')
 
             self.smtp.send_message(msg)
             print(f"✅ Email sent to {reciever}")

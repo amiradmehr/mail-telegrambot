@@ -101,11 +101,14 @@ def telegrambot():
                 #     subject = ''
                 template_number = int(recievers.iloc[i]['Template'])
                 cv_num = int(recievers.iloc[i]['CV'])
+                cl_bool = recievers.iloc[i]['CL']
+                transcript_bool = recievers.iloc[i]['TR']
                 
                 cv = f'CV/CV{cv_num}/CV.pdf'
                 text = Templates(template_number).get(prof=professor,topic=topic,paper=paper)
 
-                send_success_failure_message, send_flag = mygmail.send_email(to,EMAIL_ADDRESS,subject,text, file=cv)
+                send_success_failure_message, send_flag = mygmail.send_email(to,EMAIL_ADDRESS,subject,text,
+                 file=cv, CL=cl_bool, Trans=transcript_bool)
                 bot.send_message(message.chat.id, send_success_failure_message)
                 if send_flag:
                     recievers.iloc[i,recievers.columns.get_loc('Log')] = 'sent'
