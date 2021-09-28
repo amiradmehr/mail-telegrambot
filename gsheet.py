@@ -30,7 +30,7 @@ class Gsheet:
 
     
     def update(self):
-        df = deepcopy(self.res[['Log','Date']])
+        df = deepcopy(self.res.loc[:,self.res.columns != 'Counter'])
         self.ws.update([df.columns.values.tolist()] + df.values.tolist())
         return True
 
