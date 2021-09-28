@@ -35,9 +35,17 @@ class Gsheet:
 
     
     def fill_duplicates(self):
-        emails = self.res['Email']
+        df = deepcopy(self.res)
+
+        index_names = df[df['Email'] == '' ].index
+        df.drop(index_names, inplace = True)
+
+        # emails = self.res['Email']
+        emails = df['Email']
         duplicates = emails.duplicated(keep='first')
-        self.res.at[list(duplicates),'Log'] = 'sent'
+        df.at[list(duplicates),'Log'] = 'sent'
+        # self.res.at[list(duplicates),'Log'] = 'sent'
+        self.res.update(df)
 
 
     def get_rows(self, num):
