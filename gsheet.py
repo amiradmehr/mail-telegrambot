@@ -31,6 +31,7 @@ class Gsheet:
     
     def update(self):
         self.ws.update([self.res.columns.values.tolist()] + self.res.values.tolist())
+        print([self.res.columns.values.tolist()])
         return True
 
     
