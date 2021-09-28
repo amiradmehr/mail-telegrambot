@@ -35,8 +35,8 @@ class Gsheet:
 
     
     def fill_duplicates(self):
-        emails = self.res['Email'].loc[self.res['Email']!='']
-        duplicates = emails.duplicated(keep='first')
+        emails = self.res['Email']
+        duplicates = emails[emails['Email']!=''].duplicated(keep='first')
         self.res.at[list(duplicates),'Log'] = 'sent'
 
 
