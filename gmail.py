@@ -36,7 +36,7 @@ class Gmail:
             with open(file, 'rb') as f:
                 file_data = f.read()
                 msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename='CV.pdf')
-            if CL.split()[0] == 'y':
+            if CL!= '' and CL.split()[0] == 'y':
                 # cl = 'Cover Letter.pdf'
                 cl = CL.split()[1]
                 with open(cl, 'rb') as ff:
