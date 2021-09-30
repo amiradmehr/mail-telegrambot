@@ -30,12 +30,9 @@ class Gsheet:
 
     
     def update(self):
-        # df = deepcopy(self.res.loc[:,self.res.columns != 'Counter'])
-        # df = deepcopy(df.loc[:,df.columns != 'Reply'])
-        # df = deepcopy(df.loc[:,df.columns != 'Conclusion'])
-
-        df = deepcopy(self.res)
-        df = df[df.columns.difference(['Reply','Conclusion','Counter'])]
+        df = deepcopy(self.res.loc[:,self.res.columns != 'Counter'])
+        df = deepcopy(df.loc[:,df.columns != 'Reply'])
+        df = deepcopy(df.loc[:,df.columns != 'Conclusion'])
 
         self.ws.update([df.columns.values.tolist()] + df.values.tolist())
         return True
